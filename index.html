@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0088CC" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="LogPulse" />
+    <meta name="application-name" content="LogPulse" />
+    <meta name="description" content="Logistics and transportation management system" />
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <title>logpulse.live</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+
+        // Handle install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          
+          // Show install button/banner
+          const installButton = document.createElement('button');
+          installButton.textContent = 'Install LogPulse';
+          installButton.className = 'install-button';
+          installButton.style.display = 'none';
+          
+          document.body.appendChild(installButton);
+          
+          // Show the button after a delay
+          setTimeout(() => {
+            installButton.style.display = 'block';
+          }, 3000);
+          
+          installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            // Hide the button
+            installButton.style.display = 'none';
+            
+            // Clear the deferredPrompt
+            deferredPrompt = null;
+          });
+        });
+
+        // Handle successful installation
+        window.addEventListener('appinstalled', () => {
+          console.log('PWA was installed');
+        });
+      }
+    </script>
+  </body>
+</html>

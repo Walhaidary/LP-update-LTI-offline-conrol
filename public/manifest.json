@@ -1,0 +1,40 @@
+{
+  "name": "LogPulse",
+  "short_name": "LogPulse",
+  "description": "Logistics and transportation management system",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0088CC",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Monitor Trucks",
+      "short_name": "Monitor",
+      "description": "View truck status and updates",
+      "url": "/monitors",
+      "icons": [{ "src": "/icons/monitor-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Create Ticket",
+      "short_name": "New Ticket",
+      "description": "Create a new support ticket",
+      "url": "/ticketing?tab=create",
+      "icons": [{ "src": "/icons/ticket-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}
